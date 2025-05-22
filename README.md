@@ -1,6 +1,6 @@
-# Ansible role: tpv-metascheduler-api
+# Ansible role to deploy TPV Broker
 
-A role that installs tpv-metascheduler-api.
+A role that installs the TPV Broker, a FastAPI application for advanced metascheduling.
 
 ## Requirements
 
