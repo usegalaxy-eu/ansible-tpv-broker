@@ -1,6 +1,6 @@
 # Ansible role to deploy TPV Broker
 
-A role that installs the TPV Broker, a FastAPI application for advanced metascheduling.
+A role that installs the [TPV Broker](https://github.com/usegalaxy-eu/tpv-broker), a FastAPI application for advanced metascheduling.
 
 ## Requirements
 
