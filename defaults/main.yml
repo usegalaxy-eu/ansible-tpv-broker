@@ -6,7 +6,7 @@ tpv_broker_commit_id: "main"
 tpv_broker_force_checkout: true # discards local changes if any
 tpv_broker_venv_dir: "/opt/tpv_broker/venv"
 tpv_broker_virtualenv_command: "python -m venv"
-tpv_broker_systemd_service_name: "tpv_broker"
+tpv_broker_systemd_service_name: "tpv-broker"
 tpv_broker_systemd_service_user: "nginx"
 tpv_broker_ssl_certificate: ""
 tpv_broker_ssl_certificate_key: ""
