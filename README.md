@@ -87,7 +87,6 @@ users:
     scheduling:
       prefer:
         - be-pulsar
-        - sanjay-pulsar
         - de-pulsar
         - cz-pulsar
         - it-pulsar
