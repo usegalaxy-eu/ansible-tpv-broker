@@ -12,7 +12,7 @@ Role variables are documented in the forms of comments on [defaults/main.yml](de
 
 ## Dependencies
 
-None.
+Requires setting up the [pulsar-util](https://github.com/usegalaxy-eu/ansible-pulsar-util) both the producer side on the Pulsar destinations and the consumer side on the Galaxy side.
 
 ## Example Playbook
 
@@ -75,6 +75,44 @@ server {
 }
 
 ...
+```
+
+As well as the [pulsar-util](https://github.com/usegalaxy-eu/ansible-pulsar-util) role and two Telegraf jobs to collect additional Pulsar metrics:
+
+```
+telegraf_agent_output:
+  - type: influxdb
+    config:
+      - urls = ["{{ consumer_influx_address }}:{{ consumer_influx_port }}"]
+      - username = "{{ consumer_influx_username }}"
+      - password = "{{ consumer_influx_password }}"
+      - database = "{{ consumer_influx_db }}"
+      - timeout = "10s"
+    tagpass:
+      - destination = ["esg"]
+
+telegraf_plugins_extra:
+  # aggregated tool-to-destination queue - and run times
+  monitor_galaxy_tool_times_esg:
+    plugin: "exec"
+    config:
+      - commands = ["/usr/bin/monitor-galaxy-tool-times"]
+      - timeout = "10m"
+      - data_format = "influx"
+      - interval = "10m"
+    tags:
+      - destination = "esg"
+
+  # destination queue size
+  galaxy_jobs_destination_overview_esg:
+    plugin: "exec"
+    config:
+      - commands = ["{{ custom_telegraf_env }} /usr/bin/gxadmin iquery queue --by destination"]
+      - timeout = "30s"
+      - data_format = "influx"
+      - interval = "1m"
+    tags:
+      - destination = "esg"
 ```
 
 And a TPV rank function to send the requests to the TPV Broker endpoint:
